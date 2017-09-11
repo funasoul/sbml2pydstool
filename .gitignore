@@ -1,0 +1,33 @@
+# object files
+*.o
+*.lo
+*.slo
+*.obj
+*.pyc
+
+# precompiled headers
+*.gch
+*.pch
+
+# dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# static libraries
+*.a
+*.la
+*.lai
+*.lib
+
+# executables
+*.app
+*.exe
+*.out
+
+# cmake
+build
+
+# IntelliJ
+.idea/
+cmake-build-*/
