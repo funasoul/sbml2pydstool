@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Tue, 23 Jan 2018 22:58:25 +0900
+# Last modified: Tue, 23 Jan 2018 23:24:29 +0900
 #
 # try import libsbml
 try:
@@ -37,6 +37,8 @@ class Converter():
         self.pars = {}
         self.icdict = {}
         self.varspecs = {}
+        self.functions = {}
+        self.funcargs = {}
 
     def update_sbmlfile(self, filepath=""):
         if filepath is not "":
@@ -52,6 +54,7 @@ class Converter():
             self.generate_pars(self.sbmlmodel)
             self.generate_icdict(self.sbmlmodel)
             self.generate_varspecs(self.sbmlmodel)
+            self.generate_functions(self.sbmlmodel)
 
     def generate_pars(self, model):
         # global parameters
@@ -126,7 +129,22 @@ class Converter():
                     root = self.add_ast_as_reactant(root, r)
                 if self.is_species_product_of(s, r):
                     root = self.add_ast_as_product(root, r)
-    
+
             if root is not None:
                 self.varspecs[s.getId()] = formulaToString(root)
+
+    def generate_functions(self, model):
+        # global parameters
+        for f in model.getListOfFunctionDefinitions():
+            ast = f.getMath()
+            idx = ast.getNumChildren() - 1
+            ast_func = ast.getChild(idx) # most right child is the function
+            self.functions[f.getId()] = formulaToString(ast_func)
+            arglist = []
+            for i in range(ast.getNumChildren() - 1):
+                child = ast.getChild(i)
+                print child.getName()
+                arglist.append(child.getName())
+
+            self.funcargs[f.getId()] = arglist
 
