@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Tue, 23 Jan 2018 23:24:29 +0900
+# Last modified: Tue, 23 Jan 2018 23:39:11 +0900
 #
 # try import libsbml
 try:
@@ -143,7 +143,6 @@ class Converter():
             arglist = []
             for i in range(ast.getNumChildren() - 1):
                 child = ast.getChild(i)
-                print child.getName()
                 arglist.append(child.getName())
 
             self.funcargs[f.getId()] = arglist
