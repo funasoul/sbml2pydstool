@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Tue, 12 Sep 2017 02:11:05 +0900
+# Last modified: Tue, 23 Jan 2018 19:36:48 +0900
 #
 # try import libsbml
 try:
@@ -68,9 +68,9 @@ class Converter():
 
     def generate_icdict(self, model):
         for s in model.getListOfSpecies():
-            if s.isSetInitialConcentration:
+            if s.isSetInitialConcentration():
                 self.icdict[s.getId()] = s.getInitialConcentration()
-            elif s.isSetIntialAmount():
+            elif s.isSetInitialAmount():
                 self.icdict[s.getId()] = s.getInitialAmount()
 
     def is_species_reactant_of(self, species, reaction):
