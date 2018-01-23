@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Tue, 23 Jan 2018 19:36:48 +0900
+# Last modified: Tue, 23 Jan 2018 22:58:25 +0900
 #
 # try import libsbml
 try:
@@ -65,6 +65,10 @@ class Converter():
                 # we assume there is no conflict on parameter id
                 assert p.getId() not in self.pars, "Please rename your parameter id so that there is no conflict between local and global parameters."
                 self.pars[p.getId()] = p.getValue()
+
+        # compartments
+        for p in model.getListOfCompartments():
+            self.pars[p.getId()] = p.getSize()
 
     def generate_icdict(self, model):
         for s in model.getListOfSpecies():
