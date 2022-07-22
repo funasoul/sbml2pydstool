@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Fri, 22 Jul 2022 22:49:20 +0900
+# Last modified: Sat, 23 Jul 2022 02:08:00 +0900
 #
 # try import libsbml
 try:
@@ -49,9 +49,30 @@ class Converter():
             self.sbmlmodel = sbmldocument.getModel()
             self.filepath = ""
             self.clear_objects()
+            self.rename_shortsbase(self.sbmlmodel)
             self.generate_pars(self.sbmlmodel)
             self.generate_icdict(self.sbmlmodel)
             self.generate_varspecs(self.sbmlmodel)
+            self.check_dstool_model()
+
+    def rename_shortsbase(self, model):
+        for p in model.getListOfParameters():
+            if len(p.getId()) < 3:
+                oldid = p.getId()
+                newid = "p_" + p.getId()
+                p.setId(newid)
+                allElements = self.sbmldocument.getListOfAllElements()
+                for i in range(allElements.getSize()):
+                    allElements.get(i).renameSIdRefs(oldid, newid)
+
+    def check_dstool_model(self):
+        for k in list(self.icdict.keys()):
+            if k not in self.varspecs:
+                v = self.icdict[k]
+                print(f"{k:>6}: {v} is not in varspecs. Will move {k} to pars.")
+                self.pars[k] = v
+                del self.icdict[k]
+
 
     def generate_pars(self, model):
         # global parameters
@@ -60,7 +81,6 @@ class Converter():
 
         # local parameters
         for r in model.getListOfReactions():
-            k = r.getKineticLaw()
             for p in r.getKineticLaw().getListOfParameters():
                 # we assume there is no conflict on parameter id
                 assert p.getId() not in self.pars, "Please rename your parameter id so that there is no conflict between local and global parameters."
