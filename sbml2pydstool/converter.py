@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Sat, 23 Jul 2022 02:08:00 +0900
+# Last modified: Sat, 23 Jul 2022 03:44:18 +0900
 #
 # try import libsbml
 try:
@@ -133,8 +133,20 @@ class Converter():
 
     def generate_varspecs(self, model):
         # Generate Rate equation for all variable Species (ex. dx/dt = v1 - v2 + v3).
+        for r in model.getListOfRules():
+            root = None
+            if r.isRate():
+                root = r.getMath()
+                print("found RateRule:", formulaToString(r.getMath()))
+
+            if root is not None:
+                self.varspecs[r.getVariable()] = formulaToString(root)
+
         for s in model.getListOfSpecies():
-            #if s.isSetBoundaryCondition() or s.isSetConstant:
+            # ignore if the species has RateRule
+            if model.getRateRuleByVariable(s.getId()) != None:
+                continue
+            #if s.isSetBoundaryCondition() or s.isSetConstant():
             #    continue
             root = None
             for r in model.getListOfReactions():
