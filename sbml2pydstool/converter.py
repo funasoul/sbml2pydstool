@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Tue, 12 Sep 2017 02:11:05 +0900
+# Last modified: Fri, 22 Jul 2022 21:56:15 +0900
 #
 # try import libsbml
 try:
@@ -28,7 +28,7 @@ class Converter():
         # try SBMLDocument at first, and then SBML file
         if sbmldocument is not None:
             self.sbmldocument = sbmldocument
-        elif filepath is not "":
+        elif filepath != "":
             self.sbmldocument = readSBMLFromFile(filepath)
 
         self.update_sbmldocument(self.sbmldocument)
@@ -39,7 +39,7 @@ class Converter():
         self.varspecs = {}
 
     def update_sbmlfile(self, filepath=""):
-        if filepath is not "":
+        if filepath != "":
             self.filepath = filepath
             self.sbmldocument = readSBMLFromFile(filepath)
             self.update_sbmldocument(self.sbmldocument)
