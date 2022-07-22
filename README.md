@@ -37,7 +37,7 @@ Clone the repository and install dependent python modules.
 
 Run the test script, which will import SBML (`ca.xml`) and run a simple bifurcation analysis with PyDSTool.
 ```sh
-(venv)%  python test.py
+(venv)% python test.py
 ```
 
 ## References
