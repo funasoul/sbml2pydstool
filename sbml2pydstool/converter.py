@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Sat, 23 Jul 2022 03:44:18 +0900
+# Last modified: Sat, 23 Jul 2022 04:50:11 +0900
 #
 # try import libsbml
 try:
@@ -37,6 +37,8 @@ class Converter():
         self.pars = {}
         self.icdict = {}
         self.varspecs = {}
+        self.functions = {}
+        self.funcargs = {}
 
     def update_sbmlfile(self, filepath=""):
         if filepath != "":
@@ -53,6 +55,7 @@ class Converter():
             self.generate_pars(self.sbmlmodel)
             self.generate_icdict(self.sbmlmodel)
             self.generate_varspecs(self.sbmlmodel)
+            # self.generate_functions(self.sbmlmodel)
             self.check_dstool_model()
 
     def rename_shortsbase(self, model):
@@ -73,7 +76,6 @@ class Converter():
                 self.pars[k] = v
                 del self.icdict[k]
 
-
     def generate_pars(self, model):
         # global parameters
         for p in model.getListOfParameters():
@@ -85,6 +87,10 @@ class Converter():
                 # we assume there is no conflict on parameter id
                 assert p.getId() not in self.pars, "Please rename your parameter id so that there is no conflict between local and global parameters."
                 self.pars[p.getId()] = p.getValue()
+
+        # compartments
+        for p in model.getListOfCompartments():
+            self.pars[p.getId()] = p.getSize()
 
     def generate_icdict(self, model):
         for s in model.getListOfSpecies():
@@ -157,4 +163,17 @@ class Converter():
 
             if root is not None:
                 self.varspecs[s.getId()] = formulaToString(root)
+
+    def generate_functions(self, model):
+        for f in model.getListOfFunctionDefinitions():
+            ast = f.getMath()
+            idx = ast.getNumChildren() - 1
+            ast_func = ast.getChild(idx) # most right child is the function
+            self.functions[f.getId()] = formulaToString(ast_func)
+            arglist = []
+            for i in range(ast.getNumChildren() - 1):
+                child = ast.getChild(i)
+                arglist.append(child.getName())
+
+            self.funcargs[f.getId()] = arglist
 
