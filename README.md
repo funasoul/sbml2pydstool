@@ -43,6 +43,7 @@ Run the test script, which will import SBML (`ca.xml`) and run a simple bifurcat
 ## References
 - [PyDSTool Tutorial](https://pydstool.github.io/PyDSTool/Tutorial.html)
 - [PyDSTool PyCont](https://pydstool.github.io/PyDSTool/PyCont.html)
+- [auto-07p](https://github.com/auto-07p/auto-07p)
 - [Advances in numerical bifurcation software: MatCont](https://biblio.ugent.be/publication/8615817)
 - [Numerical Continuation of Fold Bifurcations of Limit Cycles in MATCONT](https://dl.acm.org/doi/10.5555/1764172.1764253)
 - [The classification of the dynamic behavior of continuous stirred tank reactors—influence of reactor residence time](https://www.sciencedirect.com/science/article/pii/0009250976850580)
