@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="Calcium_channel_model">
+    <listOfCompartments>
+      <compartment id="c1" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="v" compartment="c1" initialAmount="0"/>
+      <species id="w" compartment="c1" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="vl" value="-60" constant="true"/>
+      <parameter id="vca" value="120" constant="true"/>
+      <parameter id="i" value="0" constant="true"/>
+      <parameter id="gl" value="2" constant="true"/>
+      <parameter id="gca" value="4" constant="true"/>
+      <parameter id="c" value="20" constant="true"/>
+      <parameter id="v1" value="-1.2" constant="true"/>
+      <parameter id="v2" value="18" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="v">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> i </ci>
+                <apply>
+                  <times/>
+                  <ci> gl </ci>
+                  <apply>
+                    <minus/>
+                    <ci> vl </ci>
+                    <ci> v </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> gca </ci>
+                <cn> 0.5 </cn>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <tanh/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <minus/>
+                        <ci> v </ci>
+                        <ci> v1 </ci>
+                      </apply>
+                      <ci> v2 </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> v </ci>
+                  <ci> vca </ci>
+                </apply>
+              </apply>
+            </apply>
+            <ci> c </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="w">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> v </ci>
+            <ci> w </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
