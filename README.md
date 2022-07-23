@@ -7,13 +7,13 @@ Convert SBML to a python code for [PyDSTool](https://github.com/robclewley/pydst
 Still under development.
 
 ## Requirements
-- Python (<= 3.9. [PyDSTool is not compatible with Python 3.10](https://getdocs.org/Python/docs/3.10/whatsnew/3.10#Removed))
-- libSBML
-- numpy
-- scipy
-- matplotlib
-- PyDSTool
-- ipython
+- [Python](https://www.python.org/) (<= 3.9. [PyDSTool is not compatible with Python 3.10](https://getdocs.org/Python/docs/3.10/whatsnew/3.10#Removed))
+- [libSBML](https://pypi.org/project/python-libsbml/)
+- [numpy](https://pypi.org/project/numpy/)
+- [scipy](https://pypi.org/project/scipy/)
+- [matplotlib](https://pypi.org/project/matplotlib/)
+- [PyDSTool](https://pypi.org/project/PyDSTool/)
+- [ipython](https://pypi.org/project/ipython/)
 
 - If you want to use AUTO and Fortran-based integrator (Radau), please install `gfortran`.
   ```sh
