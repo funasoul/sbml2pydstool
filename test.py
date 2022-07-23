@@ -12,6 +12,7 @@ c = sbml2pydstool.Converter("ca.xml")
 DSargs = args(name=c.sbmlmodel.getName())
 DSargs.pars = c.pars
 DSargs.varspecs = c.varspecs
+DSargs.fnspecs = c.fnspecs
 DSargs.ics = c.icdict
 
 # Integral curves

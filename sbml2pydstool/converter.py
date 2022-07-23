@@ -2,7 +2,7 @@
 # vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
-# Last modified: Sat, 23 Jul 2022 04:50:11 +0900
+# Last modified: Sun, 24 Jul 2022 05:33:18 +0900
 #
 # try import libsbml
 try:
@@ -37,6 +37,7 @@ class Converter():
         self.pars = {}
         self.icdict = {}
         self.varspecs = {}
+        self.fnspecs = {}
         self.functions = {}
         self.funcargs = {}
 
@@ -55,7 +56,7 @@ class Converter():
             self.generate_pars(self.sbmlmodel)
             self.generate_icdict(self.sbmlmodel)
             self.generate_varspecs(self.sbmlmodel)
-            # self.generate_functions(self.sbmlmodel)
+            self.generate_functions(self.sbmlmodel)
             self.check_dstool_model()
 
     def rename_shortsbase(self, model):
@@ -176,4 +177,5 @@ class Converter():
                 arglist.append(child.getName())
 
             self.funcargs[f.getId()] = arglist
+            self.fnspecs[f.getId()] = (self.funcargs[f.getId()], self.functions[f.getId()])
 

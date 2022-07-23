@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model id="Calcium_channel_model">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="minf">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> v </ci>
+            </bvar>
+            <bvar>
+              <ci> v1 </ci>
+            </bvar>
+            <bvar>
+              <ci> v2 </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <cn> 0.5 </cn>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <tanh/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> v </ci>
+                      <ci> v1 </ci>
+                    </apply>
+                    <ci> v2 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
     <listOfCompartments>
       <compartment id="c1" size="1" constant="true"/>
     </listOfCompartments>
@@ -41,22 +78,11 @@
               <apply>
                 <times/>
                 <ci> gca </ci>
-                <cn> 0.5 </cn>
                 <apply>
-                  <plus/>
-                  <cn type="integer"> 1 </cn>
-                  <apply>
-                    <tanh/>
-                    <apply>
-                      <divide/>
-                      <apply>
-                        <minus/>
-                        <ci> v </ci>
-                        <ci> v1 </ci>
-                      </apply>
-                      <ci> v2 </ci>
-                    </apply>
-                  </apply>
+                  <ci> minf </ci>
+                  <ci> v </ci>
+                  <ci> v1 </ci>
+                  <ci> v2 </ci>
                 </apply>
                 <apply>
                   <minus/>
