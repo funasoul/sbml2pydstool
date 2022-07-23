@@ -295,3 +295,5 @@ $RECYCLE.BIN/
 build
 # python virtual env
 venv
+# figures
+*.png

@@ -26,10 +26,10 @@ plt.xlabel('time')                              # Axes labels
 plt.ylabel('voltage')                           # ...
 plt.ylim([0,65])                                # Range of the y axis
 plt.title(ode.name)                             # Figure title from model name
-plt.show()
+plt.figure()
+plt.savefig("fig1.png")
 
 # The system described by Eq. (Ca) is bistable. This can be easily seen integrating trajectories with different initial conditions:
-plt.clf()                                       # Clear the figure
 for i, v0 in enumerate(np.linspace(-80,80,20)):
     ode.set( ics = { 'v': v0 } )                # Initial condition
     # Trajectories are called pol0, pol1, ...
@@ -39,13 +39,15 @@ for i, v0 in enumerate(np.linspace(-80,80,20)):
 plt.xlabel('time')
 plt.ylabel('voltage')
 plt.title(ode.name + ' multi ICs')
-plt.show()
+plt.savefig("fig2.png")
 
 # Bifurcation diagrams
 # Prepare the system to start close to a steady state
 ode.set(pars = {'p_i': -220} )       # Lower bound of the control parameter 'i'
 ode.set(ics =  {'v': -170} )       # Close to one of the steady states present for i=-220
+
 PC = ContClass(ode)
+
 PCargs = args(name='EQ1', type='EP-C')     # 'EP-C' stands for Equilibrium Point Curve. The branch will be labeled 'EQ1'.
 PCargs.freepars     = ['p_i']                    # control parameter(s) (it should be among those specified in DSargs.pars)
 PCargs.MaxNumPoints = 450                      # The following 3 parameters are set after trial-and-error
@@ -57,7 +59,8 @@ PCargs.SaveEigen    = True                     # to tell unstable from stable br
 
 PC.newCurve(PCargs)
 PC['EQ1'].forward()
-PC.display(['p_i','v'], stability=True, figure=3)        # stable and unstable branches as solid and dashed curves, resp.
+PC['EQ1'].display(['p_i','v'], stability=True, figure=3)        # stable and unstable branches as solid and dashed curves, resp.
+plt.savefig("fig3.png")
 
 # The information of the equilibrium curve can be accessed via the info() method:
 PC['EQ1'].info()
@@ -76,3 +79,5 @@ PC.newCurve(PCargs)
 PC['SN1'].forward()
 PC['SN1'].backward()
 PC['SN1'].display(['p_i','gca'], figure=4)
+plt.savefig('fig4.png')
+plt.show()
