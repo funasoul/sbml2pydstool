@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sbml2pydstool
 import numpy as np
 from matplotlib import pyplot as plt
@@ -6,7 +7,7 @@ from PyDSTool import ContClass
 from PyDSTool import Generator
 
 # convert SBML to PyDSTool object
-c = sbml2pydstool.Converter("ca.xml")
+c = sbml2pydstool.Converter("models/ca.xml")
 
 # configure model
 DSargs = args(name=c.sbmlmodel.getName())
