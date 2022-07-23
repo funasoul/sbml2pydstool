@@ -1,6 +1,9 @@
 # sbml2pydstool
 Convert SBML to a python code for [PyDSTool](https://github.com/robclewley/pydstool).
 
+## Screenshot
+![screenshot](https://raw.githubusercontent.com/funasoul/sbml2pydstool/images/sbml2pydstool.png)
+
 Still under development.
 
 ## Requirements
