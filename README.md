@@ -38,7 +38,7 @@ Clone the repository and install dependent python modules.
 (venv)% pip install gnureadline ipython
 ```
 
-Run the test script, which will import SBML (`ca.xml`) and run a simple bifurcation analysis with PyDSTool.
+Run the test script, which will import SBML (`models/ca.xml`) and run a simple bifurcation analysis with PyDSTool.
 ```sh
 (venv)% python test.py
 ```
