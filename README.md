@@ -30,7 +30,7 @@ Clone the repository and install dependent python modules.
 % python3.9 -m venv venv
 % source ./venv/bin/activate
 (venv)% pip install --upgrade pip
-(venv)% pip install python-libsbml numpy scipy
+(venv)% pip install python-libsbml numpy scipy matplotlib
 (venv)% pip install pydstool
 (venv)% pip install gnureadline ipython
 ```
