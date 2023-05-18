@@ -8,8 +8,10 @@ import sbml2pydstool
 
 from pprint import pprint
 
-parser = argparse.ArgumentParser("Reads SBML files and converts them into objects for PyDSTool")
-parser.add_argument('sbml', help="SBML file to be converted to PyDSTool")
+parser = argparse.ArgumentParser(
+    "Reads SBML files and converts them into objects for PyDSTool"
+)
+parser.add_argument("sbml", help="SBML file to be converted to PyDSTool")
 
 args = parser.parse_args()
 
@@ -24,7 +26,8 @@ if d.getNumErrors() > 0:
     print(d.getErrorLog().toString())
     sys.exit()
 
-d.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False) # skip unit check
+# skip unit check
+d.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, False)
 if d.checkConsistency() > 0:
     print(d.getErrorLog().toString())
     sys.exit()
